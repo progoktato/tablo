@@ -29,3 +29,123 @@ body {
         transform: none;
     }
 }
+
+/* Lebegő sziget animáció */
+@keyframes random-floating {
+    0% {
+        transform: translate(0, 0);
+    }
+    20% {
+        transform: translate(10vw, 5vh);
+    }
+    40% {
+        transform: translate(-10vw, -5vh);
+    }
+    60% {
+        transform: translate(5vw, -10vh);
+    }
+    80% {
+        transform: translate(-5vw, 10vh);
+    }
+    100% {
+        transform: translate(0, 0);
+    }
+}
+
+.floating-island {
+    position: absolute; /* Fontos, hogy az egész képernyőn mozoghasson */
+    top: 50%;
+    left: 50%;
+    width: 10%;
+    height: 10%;
+    background: #f0c674;
+    border-radius: 50%;
+    box-shadow: 0 100px 20px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.3s hease;
+    animation: random-floating 30s infinite ease-in-out; 
+}
+
+.floating-island:hover {
+    transform: scale(1.1);
+}
+
+
+/* Szöveg a szigeten */
+.island-text {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Videókártya stílusok */
+.video-card {
+    position: absolute;
+    top: 160px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex; /* Flexbox a kártyák egymás mellé helyezéséhez */
+    gap: 10px; /* Távolság a kártyák között */
+    background: #fff;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 10;
+}
+
+/* Videókártya hover eseménykor megjelenik */
+.floating-island:hover .video-card {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Egyedi videókártya stílusok */
+.video-item {
+    width: 120px;
+    text-align: center;
+}
+
+.video-item img {
+    width: 100%;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.video-item p {
+    font-size: 14px;
+    margin-top: 5px;
+    color: #333;
+}
+
+/* Videók listája */
+.video-card ul {
+    list-style: none;
+    margin: 10px;
+    padding: 0;
+}
+
+.video-card li {
+    margin: 5px 0;
+}
+
+.video-card a {
+    text-decoration: none;
+    color: #0073e6;
+    font-size: 14px;
+}
+
+.video-card a:hover {
+    text-decoration: underline;
+}
+
+/* Animáció leállítása a paused osztállyal */
+.floating-island.paused {
+    animation-play-state: paused; /* Az animáció megállítása */
+}
