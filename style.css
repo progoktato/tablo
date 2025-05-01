@@ -1,0 +1,31 @@
+body {
+    background: url("Images//Mechwart\ 13.b\ tabló.jpg") no-repeat center center fixed;
+    background-size:contain;
+    transform: rotate(90deg); 
+    transform-origin: center; 
+}
+
+/* Töréspont: Tabletek (min. 768px szélesség) */
+@media (min-width: 768px) {
+    body {
+        background-size: contain; 
+        transform: none;
+    }
+}
+
+/* Töréspont: Laptopok és kisebb asztali gépek (min. 1024px szélesség) */
+@media (min-width: 1024px) {
+    body {
+        background-position: top center; 
+        transform: none;
+    }
+}
+
+/* Töréspont: Nagyobb asztali képernyők (min. 1440px szélesség) */
+@media (min-width: 1440px) {
+    body {
+        background-size: cover;
+        background-attachment:scroll; 
+        transform: none;
+    }
+}
