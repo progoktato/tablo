@@ -89,24 +89,21 @@ document.addEventListener("DOMContentLoaded", () => {
     function showNextImage() {
         if (slideshowPaused) return;
 
-        // Állítsuk be a következő képet
+        // Véletlen index választása
+        const randomIndex = Math.floor(Math.random() * images.length);
         slideshow.style.display = "block";
-        slideshow.style.opacity = "0"; // Kezdetben átlátszó
-        slideshow.innerHTML = `<img src="${images[currentIndex]}" alt="Slideshow Image">`;
+        slideshow.style.opacity = "0";
+        slideshow.innerHTML = `<img src="${images[randomIndex]}" alt="Slideshow Image">`;
 
-        // Fokozatosan jelenjen meg
         setTimeout(() => {
             slideshow.style.opacity = "1";
         }, 100);
 
-        // 3 másodperc múlva halványuljon el
         setTimeout(() => {
             slideshow.style.opacity = "0";
         }, 4000);
 
-        // 4 másodperc múlva lépjünk a következő képre
         setTimeout(() => {
-            currentIndex = (currentIndex + 1) % images.length; // Következő kép indexe
             showNextImage();
         }, 6000);
     }

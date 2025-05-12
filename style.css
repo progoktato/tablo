@@ -28,30 +28,62 @@ html, body {
     position: absolute;
     top: 0;
     left: 0;
-    width: 200px;
-    background: #fff;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    width: 220px;
+    height: 140px;
+    background: url("Images/film_slide_clean.png") no-repeat center center;
+    background-size: contain;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    border: none;
+    border-radius: 0;
     animation: move-around 60s infinite linear;
+    overflow: hidden;
 }
 
-.video-card img {
-    width: 100%;
-    border-radius: 4px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+.video-card::before,
+.video-card::after {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    height: 10px;
+    background: repeating-linear-gradient(
+        to right,
+        #fff 0 6px,
+        #222 6px 12px
+    );
+    border-radius: 6px;
+    z-index: 1; /* kisebb, mint a slideshow vagy overlay */
+}
+
+.video-card::before {
+    top: -16px;
+}
+
+.video-card::after {
+    bottom: -16px;
+}
+
+.video-card img,
+.video-card iframe {
+    width: 63%;
+    height: 75%;
+    object-fit: cover;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    background: transparent;
+    z-index: 1;
 }
 
 .video-card p {
-    font-size: 14px;
-    margin-top: 5px;
-    color: #333;
+    display: none;
 }
 
+/* --- Slideshow és videó overlay --- */
 #slideshow {
     position: fixed;
     top: 50%;
@@ -62,6 +94,7 @@ html, body {
     display: none;
     opacity: 0;
     transition: opacity 2s ease-in-out;
+    z-index: 10; /* vagy nagyobb, hogy mindig felül legyen */
 }
 
 #slideshow img {
@@ -166,11 +199,18 @@ html, body {
     .video-card {
         transform: none;
         animation: move-around 60s infinite linear;
+        width: 275px;   /* 220px + 25% = 275px */
+        height: 175px;  /* 140px + 25% = 175px */
     }
 
     #slideshow {
-        width: 40%;
+        width: 60%; 
         rotate: none;
+    }
+
+    #slideshow img {
+        width: 50%;
+        height: auto;
     }
 
     #video-overlay iframe {
@@ -180,10 +220,10 @@ html, body {
 
 /* --- Animáció a kártyák körkörös mozgásához --- */
 @keyframes move-around {
-    0%   { top: 0; left: 0; }
-    25%  { top: 0; left: calc(100vw - 200px);}
-    50%  { top: calc(100vh - 100px); left: calc(100vw - 200px);}
-    75%  { top: calc(100vh - 100px); left: 0;}
-    100% { top: 0; left: 0;}
+    0%   { top: 2vh; left: 0; }
+    25%  { top: 2vh; left: calc(95vw - 200px); }
+    50%  { top: calc(94vh - 100px); left: calc(95vw - 200px); }
+    75%  { top: calc(94vh - 100px); left: 0; }
+    100% { top: 2vh; left: 0; }
 }
 
