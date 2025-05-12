@@ -1,4 +1,14 @@
 /* Alapértelmezett stílusok (mobile first, álló tájolás) */
+* {
+    box-sizing: border-box; /* Minden elemre alkalmazzuk a box-sizing: border-box; stílust */
+}
+html, body {
+    margin: 0; /* Eltávolítja az alapértelmezett margókat */
+    padding: 0; /* Eltávolítja az alapértelmezett paddingot */
+    font-family: Arial, sans-serif; /* Alapértelmezett betűtípus */
+    color: #333; /* Alapértelmezett szövegszín */
+}
+
 body {
     width: 100vw; /* Teljes szélesség */
     height: 100vh; /* Teljes magasság */
@@ -10,6 +20,24 @@ body {
     overflow: hidden; /* Megakadályozza a görgetést */
     margin: 0; /* Eltávolítja az alapértelmezett margókat */
     padding: 0; /* Eltávolítja az alapértelmezett paddingot */
+}
+
+@media (max-width: 1279px) {
+    body {
+        background: url("Images//tabloFullHD.jpg") no-repeat center center;
+        background-size: cover; /* A kép teljes magasságban elfér */
+        background-color: rgb(208, 208, 163); /* Háttérszín a kitöltéshez */
+        transform: none; /* Eltávolítjuk az elforgatást */
+    }
+}
+
+@media (min-width: 1280px) and (max-width: 1919px) {
+    body {
+        background: url("Images//tabloFullHD.jpg") no-repeat center center;
+        background-size: contain; /* A kép teljes magasságban elfér */
+        background-color: rgb(208, 208, 163); /* Háttérszín a kitöltéshez */
+        transform: none; /* Eltávolítjuk az elforgatást */
+    }
 }
 
 /* Töréspont: FullHD feletti fekvő tájolás (min. 1920px szélesség) */
@@ -42,7 +70,7 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    animation: move-around 20s infinite linear; /* Lassú körkörös mozgás */
+    animation: move-around 60s infinite linear; /* Lassú körkörös mozgás */
 }
 
 .video-card img {
@@ -98,4 +126,33 @@ body {
     height: auto;
     border-radius: 50px; /* Lekerekített sarkok */
     box-shadow: 0 40px 80px rgba(0, 0, 0, 0.5); /* Árnyék */
+}
+
+.video-card iframe {
+    display: none; /* Alapértelmezés szerint rejtve */
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 8px;
+}
+
+#video-overlay {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 33%; /* A képernyő 1/9-ed részének megfelelő szélesség */
+    height: auto;
+    display: none; /* Alapértelmezés szerint rejtve */
+    z-index: 1000; /* A legfelső réteg */
+    background: rgba(0, 0, 0, 0.8); /* Háttérszín */
+    border-radius: 8px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+}
+
+#video-overlay iframe {
+    width: 100%;
+    height: auto;
+    border: none;
+    border-radius: 8px;
 }

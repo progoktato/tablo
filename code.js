@@ -1,11 +1,63 @@
 document.addEventListener("DOMContentLoaded", () => {
-
     const slideshow = document.getElementById("slideshow");
+    const videoOverlay = document.createElement("div");
+    videoOverlay.id = "video-overlay";
+    document.body.appendChild(videoOverlay);
+
+    const videoCards = document.querySelectorAll(".video-card");
+    let slideshowPaused = false;
+
+    function pauseSlideshow() {
+        slideshowPaused = true;
+        slideshow.style.display = "none";
+    }
+
+    function resumeSlideshow() {
+        if (slideshowPaused) {
+            slideshowPaused = false;
+            slideshow.style.display = "block";
+            showNextImage(); // Újraindítjuk a slideshow-t
+        }
+    }
+
+    videoCards.forEach((card, index) => {
+        // Késleltetés hozzáadása az animációhoz
+        card.style.animationDelay = `${index * 2}s`; // Minden kártya 2 másodperccel később indul
+
+        card.addEventListener("click", () => {
+            if (!card.classList.contains("paused")) {
+                // Állítsuk meg az animációt az adott kártyán
+                card.style.animationPlayState = "paused";
+                card.classList.add("paused");
+
+                // Hozzunk létre egy iframe-et a videóhoz
+                const videoId = card.getAttribute("data-video");
+                videoOverlay.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+                videoOverlay.style.display = "block";
+
+                // Állítsuk le a slideshow-t
+                pauseSlideshow();
+            } else {
+                // Folytassuk az animációt az adott kártyán
+                card.style.animationPlayState = "running";
+                card.classList.remove("paused");
+
+                // Tüntessük el a videót
+                videoOverlay.style.display = "none";
+                videoOverlay.innerHTML = "";
+
+                // Folytassuk a slideshow-t
+                resumeSlideshow();
+            }
+        });
+    });
+
+    // Slideshow vezérlése
     const images = [
         "Fenykepek\\R2__0030_Tablo-retouched.jpg",
         "Fenykepek\\R2__0108_Tablo-retouched.jpg",
         "Fenykepek\\R2__0148_Tablo-retouched.jpg",
-        "Fenykepek\\R2__015_Tablo-retouched.jpg",
+        "Fenykepek\\R2__0151_Tablo-retouched.jpg",
         "Fenykepek\\R2__0235_Tablo-retouched.jpg",
         "Fenykepek\\R2__0256_Tablo-retouched.jpg",
         "Fenykepek\\R2__0270_Tablo-retouched.jpg",
@@ -35,6 +87,8 @@ document.addEventListener("DOMContentLoaded", () => {
     let currentIndex = 0;
 
     function showNextImage() {
+        if (slideshowPaused) return;
+
         // Állítsuk be a következő képet
         slideshow.style.display = "block";
         slideshow.style.opacity = "0"; // Kezdetben átlátszó
@@ -43,29 +97,20 @@ document.addEventListener("DOMContentLoaded", () => {
         // Fokozatosan jelenjen meg
         setTimeout(() => {
             slideshow.style.opacity = "1";
-        }, 0);
+        }, 100);
 
-        // 2 másodperc múlva halványuljon el
+        // 3 másodperc múlva halványuljon el
         setTimeout(() => {
             slideshow.style.opacity = "0";
         }, 4000);
 
-        // 3 másodperc múlva lépjünk a következő képre
+        // 4 másodperc múlva lépjünk a következő képre
         setTimeout(() => {
             currentIndex = (currentIndex + 1) % images.length; // Következő kép indexe
             showNextImage();
-        }, 6000); // 6 másodperc a következő kép megjelenítéséhez
+        }, 6000);
     }
 
     // Indítsuk el a diavetítést
     showNextImage();
-});
-
-document.addEventListener("DOMContentLoaded", () => {
-    const videoCards = document.querySelectorAll(".video-card");
-
-    videoCards.forEach((card, index) => {
-        // Késleltetjük az animáció indítását
-        card.style.animationDelay = `${index * 2}s`; // 2 másodperc késleltetés minden kártyánál
-    });
 });
