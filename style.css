@@ -22,23 +22,8 @@ body {
     padding: 0; /* Eltávolítja az alapértelmezett paddingot */
 }
 
-@media (max-width: 1279px) {
-    body {
-        background: url("Images//tabloFullHD.jpg") no-repeat center center;
-        background-size: cover; /* A kép teljes magasságban elfér */
-        background-color: rgb(208, 208, 163); /* Háttérszín a kitöltéshez */
-        transform: none; /* Eltávolítjuk az elforgatást */
-    }
-}
 
-@media (min-width: 1280px) and (max-width: 1919px) {
-    body {
-        background: url("Images//tabloFullHD.jpg") no-repeat center center;
-        background-size: contain; /* A kép teljes magasságban elfér */
-        background-color: rgb(208, 208, 163); /* Háttérszín a kitöltéshez */
-        transform: none; /* Eltávolítjuk az elforgatást */
-    }
-}
+
 
 /* Töréspont: FullHD feletti fekvő tájolás (min. 1920px szélesség) */
 @media (min-width: 1920px) {
@@ -114,7 +99,7 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 16%; /* A kép szélessége */
+    width: 20%; /* A kép szélessége */
     height: auto; /* Automatikus magasság az arányok megtartásához */
     display: none; /* Alapértelmezés szerint rejtve */
     opacity: 0; /* Kezdetben átlátszó */
@@ -140,11 +125,12 @@ body {
 
 #video-overlay {
     position: fixed;
-    top: 20%;
-    left: 20%;
+    top: 50%;
+    left: 50%;
     transform: translate(-50%, -50%);
-    width: 60%; /* Alapértelmezett szélesség */
-    height: auto;
+    width: 80%; /* Alapértelmezett szélesség */
+    max-width: 1280px; /* Maximális szélesség nagyobb képernyőkön */
+    aspect-ratio: 16 / 9; /* A YouTube-videó arányainak megtartása */
     display: none;
     z-index: 1000;
     background: rgba(0, 0, 0, 0.8);
@@ -154,7 +140,7 @@ body {
 
 #video-overlay iframe {
     width: 100%;
-    height: auto;
+    height: 100%;
     border: none;
     border-radius: 8px;
 }
@@ -166,6 +152,20 @@ body {
     }
 
     #video-overlay {
-        width: 80%; /* 40%-kal nagyobb szélesség mobil nézetben */
+        width: 90%; /* Mobil nézetben nagyobb szélesség */
+        max-width: none; /* Maximális szélesség eltávolítása */
+    }
+
+    #slideshow {
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        transform: rotate(-90deg) translate(-50%, -50%); /* Elforgatás mobil nézetben */
+        transform-origin: center; /* Forgatás középpontja */
+        width: 40%; /* A kép szélessége */
+        height: auto; /* Automatikus magasság az arányok megtartásához */
+        display: none; /* Alapértelmezés szerint rejtve */
+        opacity: 0; /* Kezdetben átlátszó */
+        transition: opacity 2s ease-in-out;
     }
 }
