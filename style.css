@@ -23,18 +23,6 @@ body {
 }
 
 
-
-
-/* Töréspont: FullHD feletti fekvő tájolás (min. 1920px szélesség) */
-@media (min-width: 1920px) {
-    body {
-        background: url("Images//tablo4K.jpg") no-repeat center center;
-        background-size: contain; /* A kép teljes magasságban elfér */
-        background-color: rgb(208, 208, 163); /* Háttérszín a kitöltéshez */
-        transform: none; /* Eltávolítjuk az elforgatást */
-    }
-}
-
 .video-container {
     position: relative;
     width: 100vw;
@@ -147,25 +135,52 @@ body {
 
 /* Mobil portré mód (max. 768px szélesség) */
 @media (max-width: 768px) {
-    #slideshow img {
-        width: 95%; /* Nagyobb szélesség mobil nézetben */
+    html, body {
+        width: 100vh; /* Az elforgatás miatt a magasság lesz a szélesség */
+        height: 100vw; /* Az elforgatás miatt a szélesség lesz a magasság */
+        overflow-x: auto; /* Oldalirányú görgetés engedélyezése */
+        overflow-y: hidden; /* Függőleges görgetés tiltása */
     }
-
-    #video-overlay {
-        width: 90%; /* Mobil nézetben nagyobb szélesség */
-        max-width: none; /* Maximális szélesség eltávolítása */
+    body {
+        background: url("Images//tabloFullHD.jpg") no-repeat center center;
+        background-size:cover  ; /* A kép teljes magasságban kitölti a képernyőt */
+        transform: rotate(90deg); /* A kép elforgatása 90 fokkal */
+        transform-origin: center; /* Forgatás középpontja a bal felső sarok */
+        width: 100vh; /* Az elforgatott kép szélessége */
+        height: 100vw; /* Az elforgatott kép magassága */
     }
 
     #slideshow {
         position: fixed;
         left: 50%;
         top: 50%;
-        transform: rotate(-90deg) translate(-50%, -50%); /* Elforgatás mobil nézetben */
-        transform-origin: center; /* Forgatás középpontja */
-        width: 40%; /* A kép szélessége */
+        transform: rotate(-90deg) translate(50%, -50%); /* Elforgatás 90 fokkal és középre igazítás */
+        transform-origin: center;
+        width: 80%; /* Nagyobb szélesség mobil nézetben */
         height: auto; /* Automatikus magasság az arányok megtartásához */
         display: none; /* Alapértelmezés szerint rejtve */
         opacity: 0; /* Kezdetben átlátszó */
         transition: opacity 2s ease-in-out;
     }
+
+    #slideshow img {
+        width: 60%; /* A kép teljesen kitölti a slideshow konténert */
+        height: auto;
+    }
+
+    #video-overlay {
+        width: 90%; /* Mobil nézetben nagyobb szélesség */
+        max-width: none; /* Maximális szélesség eltávolítása */
+    }
 }
+
+/* Töréspont: FullHD feletti fekvő tájolás (min. 1920px szélesség) */
+@media (min-width: 1920px) {
+    body {
+        background: url("Images//tablo4K.jpg") no-repeat center center;
+        background-size: contain; /* A kép teljes magasságban elfér */
+        background-color: rgb(208, 208, 163); /* Háttérszín a kitöltéshez */
+        transform: none; /* Eltávolítjuk az elforgatást */
+    }
+}
+
