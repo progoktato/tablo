@@ -122,10 +122,12 @@ body {
 }
 
 #slideshow img {
-    width: 100%;
+    width: 80%; /* Alapértelmezett szélesség */
     height: auto;
-    border-radius: 50px; /* Lekerekített sarkok */
-    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.5); /* Árnyék */
+    display: block;
+    margin: 0 auto;
+    border-radius: 8px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
 }
 
 .video-card iframe {
@@ -138,14 +140,14 @@ body {
 
 #video-overlay {
     position: fixed;
-    top: 50%;
-    left: 50%;
+    top: 20%;
+    left: 20%;
     transform: translate(-50%, -50%);
-    width: 33%; /* A képernyő 1/9-ed részének megfelelő szélesség */
+    width: 60%; /* Alapértelmezett szélesség */
     height: auto;
-    display: none; /* Alapértelmezés szerint rejtve */
-    z-index: 1000; /* A legfelső réteg */
-    background: rgba(0, 0, 0, 0.8); /* Háttérszín */
+    display: none;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.8);
     border-radius: 8px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
 }
@@ -155,4 +157,15 @@ body {
     height: auto;
     border: none;
     border-radius: 8px;
+}
+
+/* Mobil portré mód (max. 768px szélesség) */
+@media (max-width: 768px) {
+    #slideshow img {
+        width: 95%; /* Nagyobb szélesség mobil nézetben */
+    }
+
+    #video-overlay {
+        width: 80%; /* 40%-kal nagyobb szélesség mobil nézetben */
+    }
 }
