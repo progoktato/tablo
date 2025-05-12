@@ -1,203 +1,101 @@
-#tablo {
+/* Alapértelmezett stílusok (mobile first, álló tájolás) */
+body {
     width: 100vw; /* Teljes szélesség */
     height: 100vh; /* Teljes magasság */
-    background: url("Images/tabloFullHD.jpg") no-repeat center center;
+    background: url("Images//tabloFullHD.jpg") no-repeat center center;
     background-size: contain; /* A kép teljes magasságban elfér */
-    background-color: rgb(208, 208, 163);
+    background-color: rgb(208, 208, 163); /* Háttérszín a kitöltéshez */
     transform: rotate(90deg); /* A kép elforgatása álló tájoláshoz */
     transform-origin: center; /* Forgatás középpontja */
     overflow: hidden; /* Megakadályozza a görgetést */
+    margin: 0; /* Eltávolítja az alapértelmezett margókat */
+    padding: 0; /* Eltávolítja az alapértelmezett paddingot */
 }
 
-@media (min-width: 1280px) {
-    #tablo {
-        background-color: rgb(208, 208, 163);
-        background: url("Images//tabloFullHD.jpg") no-repeat center center;
-        background-size: auto; /* A kép kitölti a teret */
-        transform: none; /* Eltávolítjuk az elforgatást */
-    }
-
-    .floating-island {
-        transform: none; /* Eltávolítjuk az elforgatást a lebegő szigetről */
-    }
-
-    .floating-island:hover {
-        transform: scale(1.1); /* Hover állapotban nincs elforgatás */
-    }
-}
-
+/* Töréspont: FullHD feletti fekvő tájolás (min. 1920px szélesség) */
 @media (min-width: 1920px) {
-    #tablo {
-        background: url("Images/tabloFullHD.jpg") no-repeat center center;
+    body {
+        background: url("Images//tablo4K.jpg") no-repeat center center;
         background-size: contain; /* A kép teljes magasságban elfér */
         background-color: rgb(208, 208, 163); /* Háttérszín a kitöltéshez */
         transform: none; /* Eltávolítjuk az elforgatást */
     }
-
-    .floating-island {
-        transform: none; /* Eltávolítjuk az elforgatást a lebegő szigetről */
-    }
-
-    .floating-island:hover {
-        transform: scale(1.1); /* Hover állapotban nincs elforgatás */
-    }
 }
 
-
-@keyframes random-floating {
-    0% {
-        transform: translate(0, 0);
-    }
-
-    20% {
-        transform: translate(10vw, 5vh);
-    }
-
-    40% {
-        transform: translate(-10vw, -5vh);
-    }
-
-    60% {
-        transform: translate(5vw, -10vh);
-    }
-
-    80% {
-        transform: translate(-5vw, 10vh);
-    }
-
-    100% {
-        transform: translate(0, 0);
-    }
-}
-
-.floating-island {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 10%;
-    height: 10%;
-    background: #f0c674;
-    border-radius: 50%;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-    animation: random-floating 30s infinite ease-in-out;
-    transform: rotate(90deg); /* A lebegő sziget elforgatása */
-    transform-origin: center; /* Forgatás középpontja */
-}
-.floating-island:hover {
-    transform: scale(1.1) rotate(90deg); /* Hover állapotban is elforgatva marad */
-}
-
-.island-text {
-    font-size: 16px;
-    font-weight: bold;
-    color: #333;
+.video-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden; /* Megakadályozza a kártyák kilógását */
 }
 
 .video-card {
     position: absolute;
-    top: 160px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 10px;
+    top: 0;
+    left: 0;
+    width: 200px; /* Kártya szélessége */
     background: #fff;
-    padding: 10px;
     border: 1px solid #ccc;
     border-radius: 8px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
-    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    animation: move-around 20s infinite linear; /* Lassú körkörös mozgás */
 }
 
-.floating-island:hover .video-card {
-    opacity: 1;
-    visibility: visible;
-}
-
-.video-item {
-    width: 120px;
-    text-align: center;
-}
-
-.video-item img {
+.video-card img {
     width: 100%;
     border-radius: 4px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
-.video-item p {
+.video-card p {
     font-size: 14px;
     margin-top: 5px;
     color: #333;
 }
 
-.video-card ul {
-    list-style: none;
-    margin: 10px;
-    padding: 0;
+/* Animáció a kártyák körkörös mozgásához */
+@keyframes move-around {
+    0% {
+        top: 0;
+        left: 0;
+    }
+    25% {
+        top: 0;
+        left: calc(100vw - 200px); /* Jobb felső sarok */
+    }
+    50% {
+        top: calc(100vh - 100px); /* Jobb alsó sarok */
+        left: calc(100vw - 200px);
+    }
+    75% {
+        top: calc(100vh - 100px); /* Bal alsó sarok */
+        left: 0;
+    }
+    100% {
+        top: 0;
+        left: 0; /* Vissza a bal felső sarokba */
+    }
 }
 
-.video-card li {
-    margin: 5px 0;
-}
-
-.video-card a {
-    text-decoration: none;
-    color: #0073e6;
-    font-size: 14px;
-}
-
-.video-card a:hover {
-    text-decoration: underline;
-}
-
-.floating-island.paused {
-    animation-play-state: paused;
-}
-
-.modal {
-    display: none;
+#slideshow {
     position: fixed;
-    top: 0;
-    left: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 16%; /* A kép szélessége */
+    height: auto; /* Automatikus magasság az arányok megtartásához */
+    display: none; /* Alapértelmezés szerint rejtve */
+    opacity: 0; /* Kezdetben átlátszó */
+    transition: opacity 2s ease-in-out;
+}
+
+#slideshow img {
     width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
-    z-index: 1000;
-    justify-content: center;
-    align-items: center;
-}
-
-.modal-content {
-    position: absolute;
-    width: 33.33%;
-    height: 33.33%;
-    top: 33.33%;
-    left: 33.33%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 8px;
-    overflow: hidden;
-}
-
-.modal-content iframe {
-    width: 100%;
-    height: 100%;
-}
-
-.close {
-    position: absolute;
-    top: 10px;
-    right: 20px;
-    color: #fff;
-    font-size: 24px;
-    cursor: pointer;
+    height: auto;
+    border-radius: 50px; /* Lekerekített sarkok */
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.5); /* Árnyék */
 }
