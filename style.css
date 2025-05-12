@@ -1,94 +1,110 @@
-body {
-    background: url("Images//Mechwart\ 13.b\ tabló.jpg") no-repeat center center fixed;
-    background-size:contain;
-    transform: rotate(90deg); 
-    transform-origin: center; 
+#tablo {
+    width: 100vw; /* Teljes szélesség */
+    height: 100vh; /* Teljes magasság */
+    background: url("Images/tabloFullHD.jpg") no-repeat center center;
+    background-size: contain; /* A kép teljes magasságban elfér */
+    background-color: rgb(208, 208, 163);
+    transform: rotate(90deg); /* A kép elforgatása álló tájoláshoz */
+    transform-origin: center; /* Forgatás középpontja */
+    overflow: hidden; /* Megakadályozza a görgetést */
 }
 
-/* Töréspont: Tabletek (min. 768px szélesség) */
-@media (min-width: 768px) {
-    body {
-        background-size: contain; 
-        transform: none;
+@media (min-width: 1280px) {
+    #tablo {
+        background-color: rgb(208, 208, 163);
+        background: url("Images//tabloFullHD.jpg") no-repeat center center;
+        background-size: auto; /* A kép kitölti a teret */
+        transform: none; /* Eltávolítjuk az elforgatást */
+    }
+
+    .floating-island {
+        transform: none; /* Eltávolítjuk az elforgatást a lebegő szigetről */
+    }
+
+    .floating-island:hover {
+        transform: scale(1.1); /* Hover állapotban nincs elforgatás */
     }
 }
 
-/* Töréspont: Laptopok és kisebb asztali gépek (min. 1024px szélesség) */
-@media (min-width: 1024px) {
-    body {
-        background-position: top center; 
-        transform: none;
+@media (min-width: 1920px) {
+    #tablo {
+        background: url("Images/tabloFullHD.jpg") no-repeat center center;
+        background-size: contain; /* A kép teljes magasságban elfér */
+        background-color: rgb(208, 208, 163); /* Háttérszín a kitöltéshez */
+        transform: none; /* Eltávolítjuk az elforgatást */
+    }
+
+    .floating-island {
+        transform: none; /* Eltávolítjuk az elforgatást a lebegő szigetről */
+    }
+
+    .floating-island:hover {
+        transform: scale(1.1); /* Hover állapotban nincs elforgatás */
     }
 }
 
-/* Töréspont: Nagyobb asztali képernyők (min. 1440px szélesség) */
-@media (min-width: 1440px) {
-    body {
-        background-size: cover;
-        background-attachment:scroll; 
-        transform: none;
-    }
-}
 
-/* Lebegő sziget animáció */
 @keyframes random-floating {
     0% {
         transform: translate(0, 0);
     }
+
     20% {
         transform: translate(10vw, 5vh);
     }
+
     40% {
         transform: translate(-10vw, -5vh);
     }
+
     60% {
         transform: translate(5vw, -10vh);
     }
+
     80% {
         transform: translate(-5vw, 10vh);
     }
+
     100% {
         transform: translate(0, 0);
     }
 }
 
 .floating-island {
-    position: absolute; /* Fontos, hogy az egész képernyőn mozoghasson */
+    position: absolute;
     top: 50%;
     left: 50%;
     width: 10%;
     height: 10%;
     background: #f0c674;
     border-radius: 50%;
-    box-shadow: 0 100px 20px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: transform 0.3s hease;
-    animation: random-floating 30s infinite ease-in-out; 
+    transition: transform 0.3s ease;
+    animation: random-floating 30s infinite ease-in-out;
+    transform: rotate(90deg); /* A lebegő sziget elforgatása */
+    transform-origin: center; /* Forgatás középpontja */
 }
-
 .floating-island:hover {
-    transform: scale(1.1);
+    transform: scale(1.1) rotate(90deg); /* Hover állapotban is elforgatva marad */
 }
 
-
-/* Szöveg a szigeten */
 .island-text {
     font-size: 16px;
     font-weight: bold;
     color: #333;
 }
 
-/* Videókártya stílusok */
 .video-card {
     position: absolute;
     top: 160px;
     left: 50%;
     transform: translateX(-50%);
-    display: flex; /* Flexbox a kártyák egymás mellé helyezéséhez */
-    gap: 10px; /* Távolság a kártyák között */
+    display: flex;
+    gap: 10px;
     background: #fff;
     padding: 10px;
     border: 1px solid #ccc;
@@ -100,13 +116,11 @@ body {
     z-index: 10;
 }
 
-/* Videókártya hover eseménykor megjelenik */
 .floating-island:hover .video-card {
     opacity: 1;
     visibility: visible;
 }
 
-/* Egyedi videókártya stílusok */
 .video-item {
     width: 120px;
     text-align: center;
@@ -124,7 +138,6 @@ body {
     color: #333;
 }
 
-/* Videók listája */
 .video-card ul {
     list-style: none;
     margin: 10px;
@@ -145,7 +158,46 @@ body {
     text-decoration: underline;
 }
 
-/* Animáció leállítása a paused osztállyal */
 .floating-island.paused {
-    animation-play-state: paused; /* Az animáció megállítása */
+    animation-play-state: paused;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    position: absolute;
+    width: 33.33%;
+    height: 33.33%;
+    top: 33.33%;
+    left: 33.33%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.modal-content iframe {
+    width: 100%;
+    height: 100%;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    color: #fff;
+    font-size: 24px;
+    cursor: pointer;
 }
