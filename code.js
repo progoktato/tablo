@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     videoCards.forEach((card, index) => {
         // Késleltetés hozzáadása az animációhoz
-        card.style.animationDelay = `${index * 2}s`; // Minden kártya 2 másodperccel később indul
+        card.style.animationDelay = `${index * 5}s`; // Minden kártya 2 másodperccel később indul
 
         card.addEventListener("click", () => {
             if (!card.classList.contains("paused")) {

@@ -12,7 +12,6 @@ html, body {
 body {
     width: 100vw; /* Teljes szélesség */
     height: 100vh; /* Teljes magasság */
-    background: url("Images//tabloFullHD.jpg") no-repeat center center;
     background-size: contain; /* A kép teljes magasságban elfér */
     background-color: rgb(208, 208, 163); /* Háttérszín a kitöltéshez */
     transform: rotate(90deg); /* A kép elforgatása álló tájoláshoz */
@@ -136,41 +135,108 @@ body {
 /* Mobil portré mód (max. 768px szélesség) */
 @media (max-width: 768px) {
     html, body {
-        width: 100vh; /* Az elforgatás miatt a magasság lesz a szélesség */
-        height: 100vw; /* Az elforgatás miatt a szélesség lesz a magasság */
-        overflow-x: auto; /* Oldalirányú görgetés engedélyezése */
-        overflow-y: hidden; /* Függőleges görgetés tiltása */
+        margin: 0;
+        padding: 0;
+        width: 100vh;
+        height: 100vw;
+        rotate: 90deg; /* Elforgatás 90 fokkal */
+        transform-origin: center; /* Forgatás középpontja */
+        overflow: hidden; /* Megakadályozza a görgetést */
     }
+
+    .video-card {
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: #fff;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        box-shadow: 0 25px 15px rgba(0, 0, 0, 0.2);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        animation: move-around 30s infinite linear; /* Lassú körkörös mozgás */
+    }
+
     body {
         background: url("Images//tabloFullHD.jpg") no-repeat center center;
-        background-size:cover  ; /* A kép teljes magasságban kitölti a képernyőt */
-        transform: rotate(90deg); /* A kép elforgatása 90 fokkal */
-        transform-origin: center; /* Forgatás középpontja a bal felső sarok */
-        width: 100vh; /* Az elforgatott kép szélessége */
-        height: 100vw; /* Az elforgatott kép magassága */
+        background-size: 160% ; /* A kép teljes magasságban elfér */
+    }
+    #video-overlay iframe {
+        width: 80%;
+        height: 100%;
+        border: none;
+        border-radius: 8px;
+        rotate: 90deg; /* Elforgatás 90 fokkal */
+    }
+
+    #background-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        rotate: 90deg; /* Elforgatás 90 fokkal */
+        width: 100vw; /* Teljes szélesség */
+        height: 100vh; /* Teljes magasság */
+        background: url("Images//tabloFullHD.jpg") no-repeat center center;
+        background-size: 100% ; /* A kép teljes magasságban elfér */
+        animation: scroll-horizontal 2s linear infinite alternate; /* Automatikus mozgás */
+    }
+
+    @keyframes scroll-horizontal {
+        0% {
+            transform: translateX(-100%); /* Kezdő pozíció */
+        }
+        100% {
+            transform: translateX(80%); /* Balra mozgatás */
+        }
     }
 
     #slideshow {
         position: fixed;
-        left: 50%;
         top: 50%;
-        transform: rotate(-90deg) translate(50%, -50%); /* Elforgatás 90 fokkal és középre igazítás */
-        transform-origin: center;
-        width: 80%; /* Nagyobb szélesség mobil nézetben */
+        left: 50%;
+        rotate: 90deg; /* Elforgatás 90 fokkal */
+        transform: translate(-50%, 50%);
+        width: 70%; /* A kép szélessége */
         height: auto; /* Automatikus magasság az arányok megtartásához */
-        display: none; /* Alapértelmezés szerint rejtve */
         opacity: 0; /* Kezdetben átlátszó */
         transition: opacity 2s ease-in-out;
     }
 
-    #slideshow img {
-        width: 60%; /* A kép teljesen kitölti a slideshow konténert */
-        height: auto;
+    .video-container {
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
     }
 
-    #video-overlay {
-        width: 90%; /* Mobil nézetben nagyobb szélesség */
-        max-width: none; /* Maximális szélesség eltávolítása */
+    .video-card {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(90deg); /* Elforgatás 90 fokkal */
+        width: 200px;
+        background: #fff;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .video-card img {
+        width: 100%;
+        border-radius: 4px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .video-card p {
+        font-size: 14px;
+        margin-top: 5px;
+        color: #333;
     }
 }
 
